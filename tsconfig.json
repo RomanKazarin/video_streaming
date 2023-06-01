@@ -1,0 +1,19 @@
+{
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.js",
+  ],
+  "compilerOptions": {
+    "module": "commonJS",
+    "moduleResolution": "Node",
+    "target": "ESNext",
+    "outDir": "./dist",
+    "sourceMap": true,
+    "baseUrl": ".",
+    "noImplicitAny": false,
+    "esModuleInterop": true
+  },
+    "exclude": [
+    "node_modules"
+  ]
+}
