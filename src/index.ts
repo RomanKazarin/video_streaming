@@ -12,7 +12,6 @@ const app = express()
 app.use(cors())
 app.use(express.json())
 app.use(logger('dev'))
-app.set('views', path.join(__dirname, 'views'))
 
 // endpoint
 app.use('/stream', streamRouter)

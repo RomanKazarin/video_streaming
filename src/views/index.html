@@ -1,10 +1,54 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="https://unpkg.com/vue@next"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <title>Video Player</title>
 </head>
-<body>
 
+<body>
+<div style="display: flex; align-items: center; justify-content: center; flex-direction: column; margin-top: 50px;" id="app">
+  <video style="width: 1000px" :src="videoUrl" controls autoplay></video>
+  <ul>
+    <li v-for="file in files" :key="file.magnet">
+      {{ file.fileName }}
+      <button @click="play(file)">Play</button>
+    </li>
+  </ul>
+</div>
 </body>
+
+<script>
+  const vueApp = Vue.createApp({
+    data() {
+      return {
+        activeVideo: {},
+        files: [
+          {
+            magnet: '19f958d6329f7bbc154856ffcf8b056f1f08e257',
+            fileName: 'Odin doma  Home Sweet Home Alone (2021) WEB-DLRip-AVC.mkv'
+          },
+          {
+            magnet: 'e30b5620b05c0c9fb393abd068e3f5d8015649a6',
+            fileName: '02.Сваты.S07.(2021).WEB-DLRip.(AVC).by.Серый1779.Files-x.mkv'
+          },
+        ]
+      }
+    },
+    computed: {
+      videoUrl: ({ activeVideo }) => activeVideo.fileName ? `/stream/${activeVideo.magnet}/${activeVideo.fileName}` : ''
+    },
+    methods: {
+      async play(file) {
+        const response = await axios.get(`/stream/add/${file.magnet}`)
+        this.activeVideo = file
+      }
+    },
+  }).mount('#app')
+</script>
+
 </html>
